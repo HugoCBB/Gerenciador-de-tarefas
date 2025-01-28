@@ -1,0 +1,15 @@
+:root {
+    --primary-color: #000000;
+    --primary-color-text: #ffffff;
+}
+
+
+.home__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    color: var(--primary-color-text);
+    background-color: var(--primary-color);
+}

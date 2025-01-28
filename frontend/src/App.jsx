@@ -1,12 +1,13 @@
-import Api from "./components/Api";
-import Home from "./components/pages";
+import Home from "./components/pages/home"
+
+
 
 
 function App() {
 
   return (
     <>
-      <Api/>
+      <Home/>
     </>
   )
 }

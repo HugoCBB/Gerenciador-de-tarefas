@@ -1,0 +1,22 @@
+:root {
+    --primary-color: #000000;
+    --primary-color-text: #ffffff;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: var(--primary-color);
+    color: var(--primary-color-text);
+}
+
+/* .home {
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    color: var(--primary-color-text);
+
+} */
+
+
