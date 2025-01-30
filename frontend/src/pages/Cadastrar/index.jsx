@@ -1,7 +1,7 @@
 
 
 
-const Cadastro = () => {
+const Cadastrar = () => {
     return(
         <>
             <h1>Cadastro</h1>
@@ -9,4 +9,4 @@ const Cadastro = () => {
     )
 }
 
-export default Cadastro;
+export default Cadastrar;

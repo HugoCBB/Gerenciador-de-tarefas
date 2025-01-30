@@ -10,10 +10,13 @@ const Home = () => {
                             <a href="/">Home</a>
                         </li>
                         <li>
-                            <a href="/tarefas">Login</a>
+                            <a href="/login">Login</a>
                         </li>
                         <li>
-                            <a href="/tarefas">Cadastrar</a>
+                            <a href="/cadastrar">Cadastro</a>
+                        </li>
+                        <li>
+                            <a href="/tarefas">Tarefas</a>
                         </li>
                     </ul>
                 </nav>

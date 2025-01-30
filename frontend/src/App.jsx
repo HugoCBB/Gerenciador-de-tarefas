@@ -1,20 +1,21 @@
 import Home from "./pages/home"
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Tarefas from "./pages/Tarefas";
 import Login from "./pages/Login";
-import Cadastro from "./pages/Cadastro";
+import Cadastrar from "./pages/Cadastrar";
 
 function App() {
 
   return (
     <>
-      <Switch>
-        <Route path="/" component={Home} exact />
-        <Route path="/tarefas" component={Tarefas}  />
-        <Route path="/login" component={}  />
-        <Route path="/cadastro" component={Tarefas}  />
-      </Switch>
-      
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tarefas" element={<Tarefas />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastrar" element={<Cadastrar />} />
+        </Routes>
+    </Router>
     </>
   )
 }
