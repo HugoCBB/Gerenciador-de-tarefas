@@ -1,7 +1,9 @@
 package models
 
+import "gorm.io/gorm"
+
 type Tarefa struct {
-	ID          int    `json:"id"`
+	gorm.Model
 	Titulo      string `json:"titulo"`
 	Descricao   string `json:"descricao"`
 	DataCriacao string `json:"dataCriacao"`

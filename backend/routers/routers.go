@@ -30,7 +30,7 @@ func HandleRequest() {
 	r.Use(enableCORS)
 	r.HandleFunc("/", controllers.Tarefas).Methods("GET")
 	r.HandleFunc("/api/adicionar-tarefa", controllers.AdicionarTarefa).Methods("POST")
-	// r.HandleFunc("/api/deletar-tarefa/", controllers.DeletarTarefa).Methods("DELETE")
+	r.HandleFunc("/api/deletar-tarefa/{id}", controllers.DeletarTarefa).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 

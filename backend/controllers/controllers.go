@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/database"
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/models"
+	"github.com/gorilla/mux"
 )
 
 func Tarefas(w http.ResponseWriter, r *http.Request) {
@@ -15,22 +17,18 @@ func Tarefas(w http.ResponseWriter, r *http.Request) {
 func AdicionarTarefa(w http.ResponseWriter, r *http.Request) {
 	var t models.Tarefa
 	json.NewDecoder(r.Body).Decode(&t)
-	models.Tarefas = append(models.Tarefas, t)
+	database.DB.Create(&t)
 	json.NewEncoder(w).Encode(t)
 }
 
-// func DeletarTarefa(w http.ResponseWriter, r *http.Request) {
-// 	var t models.Tarefa
-// 	json.NewDecoder(r.Body).Decode(&t)
+func DeletarTarefa(w http.ResponseWriter, r *http.Request) {
+	var t models.Tarefa
+	vars := mux.Vars(r)
+	id := vars["id"]
 
-// 	for i, tarefa := range models.Tarefas {
-// 		if tarefa.ID == t.ID {
-// 			models.Tarefas = append(models.Tarefas[:i], models.Tarefas[i+1:]...)
-// 			break
-
-// 		}
-// 	}
-// }
+	database.DB.Delete(&t, id)
+	json.NewEncoder(w).Encode(t)
+}
 
 // func ModificarTarefa(w http.ResponseWriter, r *http.Request) {
 // 	var t models.Tarefa
