@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/controllers"
+	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/middleware"
 	"github.com/gorilla/mux"
 )
 
@@ -27,10 +28,12 @@ func enableCORS(next http.Handler) http.Handler {
 
 func HandleRequest() {
 	r := mux.NewRouter()
-	r.Use(enableCORS)
-	r.HandleFunc("/", controllers.Tarefas).Methods("GET")
-	r.HandleFunc("/api/adicionar-tarefa", controllers.AdicionarTarefa).Methods("POST")
-	r.HandleFunc("/api/deletar-tarefa/{id}", controllers.DeletarTarefa).Methods("DELETE")
+	r.Use(enableCORS, middleware.ContentTypeMiddleware)
+	r.HandleFunc("/tarefa", controllers.Tarefas).Methods("GET")
+	r.HandleFunc("/tarefa/{id}", controllers.ObterTarefa).Methods("GET")
+	r.HandleFunc("/tarefa/adicionar", controllers.AdicionarTarefa).Methods("POST")
+	r.HandleFunc("/tarefa/deletar/{id}", controllers.DeletarTarefa).Methods("DELETE")
+	r.HandleFunc("/tarefa/modificar/{id}", controllers.ModificarTarefa).Methods("PUT")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 
