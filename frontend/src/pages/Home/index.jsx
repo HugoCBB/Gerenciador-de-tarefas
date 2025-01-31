@@ -1,4 +1,5 @@
 
+
 import "./Home.css"
 const Home = () => {
     return (
@@ -25,7 +26,6 @@ const Home = () => {
                 <h1>Gerenciador de tarefas</h1>
                 <p><strong>Organize sua vida e aumente sua produtividade</strong></p>
             </div>
-
         </section>
     )
 }

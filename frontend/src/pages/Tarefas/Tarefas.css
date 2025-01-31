@@ -1,0 +1,16 @@
+.tarefas__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tarefas__table th, .tarefas__table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.tarefas__table th {
+    background-color:  #000000;
+    font-weight: bold;
+}
