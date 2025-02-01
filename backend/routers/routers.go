@@ -35,6 +35,7 @@ func HandleRequest() {
 	r.HandleFunc("/tarefa/deletar/{id}", controllers.DeletarTarefa).Methods("DELETE")
 	r.HandleFunc("/tarefa/modificar/{id}", controllers.ModificarTarefa).Methods("PUT")
 
+	r.HandleFunc("/user", controllers.Usuarios).Methods("GET")
+	r.HandleFunc("/user/cadastrar", controllers.CadastrarUsuario).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8000", r))
-
 }

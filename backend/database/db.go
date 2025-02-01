@@ -24,5 +24,5 @@ func ConectDataBase() {
 
 	fmt.Println("Conexão ao banco de dados estabelecida com sucesso")
 
-	DB.AutoMigrate(&models.Tarefa{})
+	DB.AutoMigrate(&models.Tarefa{}, &models.User{})
 }
