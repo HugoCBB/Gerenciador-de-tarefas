@@ -1,0 +1,57 @@
+:root {
+    --primary-color: #000000;
+    --primary-color-text: #ffffff;
+    --secondary-color-text: #1900ff;
+
+}
+.login {
+    display: flex;
+    flex-direction: column;         
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.login__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--primary-color);
+}
+
+.form-login {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color-text);
+    padding: 64px;
+    border-radius: 8px;
+    width: 450px;
+    height: auto;
+}
+
+.form-login input {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.form-login button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--secondary-color-text);
+    color: var(--primary-color-text);
+    cursor: pointer;
+}
+
+.form-login button:hover {
+    background-color: var(--primary-color-text);
+    color: var(--secondary-color-text);
+    border: 1px solid var(--secondary-color-text);
+}

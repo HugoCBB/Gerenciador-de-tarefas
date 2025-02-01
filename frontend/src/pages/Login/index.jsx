@@ -1,10 +1,20 @@
-
+import './Login.css'
+import Navbar from "../../components/NavBar";
 
 const Login = () => {
     return (
-        <div>
-            <h1>Login</h1>
-        </div>
+        <>
+        <section className='login'> 
+            <Navbar/>   
+            <section className="login__container">
+                <form className="form-login">
+                    <input type="email" placeholder="Digite seu email" />
+                    <input type="password" placeholder="Digite sua senha" />
+                    <button type="submit">Login</button>
+                </form>
+            </section>
+        </section>
+        </>
     );
 }
 
