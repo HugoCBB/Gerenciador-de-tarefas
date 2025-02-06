@@ -5,6 +5,7 @@ type User struct {
 	Nome  string `json:"nome"`
 	Email string `json:"email"`
 	Senha string `json:"senha"`
+	// Tarefas []Tarefa `gorm:"foreignKey:UsuarioID"`
 }
 
 var users []User

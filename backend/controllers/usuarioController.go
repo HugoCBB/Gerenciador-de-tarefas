@@ -1,24 +1,25 @@
 package controllers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/database"
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/models"
+	"github.com/gin-gonic/gin"
 )
 
-func Usuarios(w http.ResponseWriter, r *http.Request) {
+func Usuarios(c *gin.Context) {
 	var u []models.User
 	database.DB.Find(&u)
-	json.NewEncoder(w).Encode(u)
-
+	c.JSON(http.StatusOK, u)
 }
 
-func CadastrarUsuario(w http.ResponseWriter, r *http.Request) {
+func CadastrarUsuario(c *gin.Context) {
 	var u models.User
-	json.NewDecoder(r.Body).Decode(&u)
+	if err := c.ShouldBindJSON(&u); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	database.DB.Create(&u)
-	json.NewEncoder(w).Encode(u)
-
+	c.JSON(http.StatusOK, u)
 }

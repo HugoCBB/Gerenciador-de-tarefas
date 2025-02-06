@@ -1,54 +1,65 @@
 package controllers
 
 import (
-	"encoding/json"
 	"net/http"
 	"time"
 
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/database"
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/models"
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 )
 
-func Tarefas(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	database.DB.Find(&models.Tarefas)
-	json.NewEncoder(w).Encode(models.Tarefas)
+func Tarefas(c *gin.Context) {
+	var t []models.Tarefa
+	database.DB.Find(&t)
+	c.JSON(http.StatusOK, t)
+
 }
 
-func AdicionarTarefa(w http.ResponseWriter, r *http.Request) {
+func ObterTarefas(c *gin.Context) {
 	var t models.Tarefa
-	json.NewDecoder(r.Body).Decode(&t)
-	t.DataCriacao = time.Now().String()
+	id := c.Param("id")
+
+	database.DB.First(&t, id)
+	if t.Id == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "Tarefa nao encontrada"})
+		return
+	}
+	c.JSON(http.StatusOK, t)
+
+}
+
+func AdicionarTarefa(c *gin.Context) {
+	var t models.Tarefa
+	if err := c.ShouldBindJSON(&t); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	t.DataCriacao = time.Now()
 	database.DB.Create(&t)
-	json.NewEncoder(w).Encode(t)
+	c.JSON(http.StatusOK, t)
 }
 
-func DeletarTarefa(w http.ResponseWriter, r *http.Request) {
+func DeletarTarefa(c *gin.Context) {
 	var t models.Tarefa
-	vars := mux.Vars(r)
-	id := vars["id"]
-
+	id := c.Param("id")
 	database.DB.Delete(&t, id)
-	json.NewEncoder(w).Encode(t)
+	c.JSON(http.StatusOK, gin.H{
+		"message": "tarefa deletada com sucesso"})
+
 }
 
-func ModificarTarefa(w http.ResponseWriter, r *http.Request) {
+func EditarTarefa(c *gin.Context) {
 	var t models.Tarefa
-	vars := mux.Vars(r)
-	id := vars["id"]
-
+	id := c.Param("id")
 	database.DB.First(&t, id)
-	json.NewDecoder(r.Body).Decode(&t)
-	database.DB.Save(&t)
-	json.NewEncoder(w).Encode(t)
-}
 
-func ObterTarefa(w http.ResponseWriter, r *http.Request) {
-	var t models.Tarefa
-	vars := mux.Vars(r)
-	id := vars["id"]
+	if err := c.ShouldBindJSON(&t); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	database.DB.Model(&t).UpdateColumns(t)
+	c.JSON(http.StatusOK, t)
 
-	database.DB.First(&t, id)
-	json.NewEncoder(w).Encode(t)
 }

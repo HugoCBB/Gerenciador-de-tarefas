@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+
 	database.ConectDataBase()
 	fmt.Println("Servidor rodando na porta 8000")
 	routers.HandleRequest()
