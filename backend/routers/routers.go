@@ -8,6 +8,8 @@ import (
 
 func HandleRequest() {
 	r := gin.Default()
+	r.RedirectTrailingSlash = false
+
 	r.Use(middleware.CORSMiddleware())
 	r.Use(middleware.ContentTypeMiddleware())
 
