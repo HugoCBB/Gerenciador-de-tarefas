@@ -1,3 +1,10 @@
+:root{
+    --primary-color: #121212;;
+    --primary-color-text: #ffffff;
+    --secondary-color-text: #136100;
+}
+
+
 .navbar {
     display: flex;
     justify-content: center;

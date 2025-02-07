@@ -1,16 +1,79 @@
-.tarefas__table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+:root{
+    --primary-color: #121212;;
+    --primary-color-text: #ffffff;
+    --secondary-color-text: #136100;
+
+    --secondary-color-text-hover:#198000;
 }
 
-.tarefas__table th, .tarefas__table td {
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: var(--primary-color);
+    color: var(--primary-color-text);
+}
+
+.tarefas__container h1 {
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    color: var(--primary-color-text);
+}
+
+.tarefas__container a {
+    color: var(--primary-color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 0 10px;
+}
+
+.tarefas__inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tarefas__inputs input {
+    margin: 5px;
+    padding: 10px;
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    border-radius: 4px;
+    width: 200px;
+    font-size: 16px;
+    color: var(--primary-color-text);
+    background-color: var(--primary-color);
 }
 
-.tarefas__table th {
-    background-color:  #000000;
-    font-weight: bold;
+.tarefas__inputs input::placeholder {
+    color: #aaa;
+}
+
+.tarefas__inputs button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--secondary-color-text);
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.tarefas__inputs button:hover {
+    background-color: var(--secondary-color-text-hover);
+}
+
+.tarefas__cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }

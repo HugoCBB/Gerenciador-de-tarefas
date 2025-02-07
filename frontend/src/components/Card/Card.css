@@ -1,7 +1,7 @@
 :root{
-    --primary-color: #000000;
+    --primary-color: #121212;;
     --primary-color-text: #ffffff;
-    --secondary-color-text: #1900ff;
+    --secondary-color-text: #136100;
 }
 
 body{
@@ -20,7 +20,7 @@ body{
     width: 400px;
     text-align: center;
     justify-content: center;
-    margin: 16px auto; 
+    margin: 16px ; 
 
 }
 
@@ -41,4 +41,10 @@ body{
 .card-content p {
     margin: 4px 0;
     color: var(--primary-color-text);
+}
+
+
+.delete-icon {
+    cursor: pointer;
+    
 }

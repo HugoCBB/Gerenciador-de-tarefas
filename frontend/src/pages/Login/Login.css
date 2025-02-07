@@ -1,9 +1,9 @@
-:root {
-    --primary-color: #000000;
+:root{
+    --primary-color: #121212;;
     --primary-color-text: #ffffff;
-    --secondary-color-text: #1900ff;
-
+    --secondary-color-text: #136100;
 }
+
 .login {
     display: flex;
     flex-direction: column;         
