@@ -25,11 +25,15 @@ const Tarefas = () => {
 
     const postTarefas = async () => {
         try {
-            const response = await axios.post("http://localhost:8000/api/tarefas/adicionar", novaTarefa, {
+            if (novaTarefa.descricao != "" || novaTarefa.titulo != "") {
+                const response = await axios.post("http://localhost:8000/api/tarefas/adicionar", novaTarefa, {
                 withCredentials: true,
-            });
-            setTarefas([...tarefas, response.data]);
-            setNovaTarefa({ titulo: '', descricao: '' });
+                });
+                setTarefas([...tarefas, response.data]);
+                setNovaTarefa({ titulo: '', descricao: '' });
+            } else {
+                console.error("Preencha os campos")
+            }
         } catch (err) {
             console.error("Erro ao adicionar tarefa:", err);
         }
