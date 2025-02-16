@@ -20,6 +20,11 @@ func CadastrarUsuario(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	if err := u.ValidateRequiredFields(); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	database.DB.Create(&u)
 	c.JSON(http.StatusOK, u)
 }

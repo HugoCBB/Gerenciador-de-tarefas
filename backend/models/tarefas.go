@@ -1,6 +1,11 @@
 package models
 
-import "time"
+import (
+	"errors"
+	"time"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Tarefa struct {
 	Id          uint      `json:"id" gorm:"primary_key"`
@@ -11,3 +16,11 @@ type Tarefa struct {
 }
 
 var Tarefas []Tarefa
+
+func (t *Tarefa) ValidateRequiredFields(c *gin.Context) error {
+	if t.Titulo == "" || t.Descricao == "" {
+		return errors.New("Campos obrigatórios não podem estar vazios")
+	}
+	return nil
+
+}

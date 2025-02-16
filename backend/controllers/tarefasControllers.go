@@ -37,6 +37,11 @@ func AdicionarTarefa(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	if err := t.ValidateRequiredFields(c); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	database.DB.Create(&t)
 	c.JSON(http.StatusOK, t)
 }
