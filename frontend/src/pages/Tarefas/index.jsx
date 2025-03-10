@@ -25,14 +25,16 @@ const Tarefas = () => {
 
     const postTarefas = async () => {
         try {
-            if (novaTarefa.descricao != "" || novaTarefa.titulo != "") {
+            if (novaTarefa.descricao != "" && novaTarefa.titulo != "") {
                 const response = await axios.post("http://localhost:8000/api/tarefas/adicionar", novaTarefa, {
                 withCredentials: true,
                 });
+                
                 setTarefas([...tarefas, response.data]);
                 setNovaTarefa({ titulo: '', descricao: '' });
             } else {
-                console.error("Preencha os campos")
+                alert("Preencha os campos corretamente");
+                console.error("Campos vazios");
             }
         } catch (err) {
             console.error("Erro ao adicionar tarefa:", err);
@@ -40,14 +42,16 @@ const Tarefas = () => {
     };
 
     const deleteTarefas = async (id) => {
-        try {
-            await axios.delete(`http://localhost:8000/api/tarefas/deletar/${id}`, {
-                withCredentials: true,
-            })
-            setTarefas(tarefas.filter(tarefa => tarefa.id !== id));
-        } catch (err) {
-            console.log("Erro ao deletar tarefa: ",err)
-            
+        if (window.confirm("Tem certeza que deseja deletar essa tarefa?")) {
+            try {
+                await axios.delete(`http://localhost:8000/api/tarefas/deletar/${id}`, {
+                    withCredentials: true,
+                })
+                setTarefas(tarefas.filter(tarefa => tarefa.id !== id));
+            } catch (err) {
+                console.log("Erro ao deletar tarefa: ",err)
+                
+            }
         }
     }
     return (
