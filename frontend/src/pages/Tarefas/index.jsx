@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './Tarefas.css';
 import Card from '../../components/card';
-import Navbar from '../../components/NavBar';
+import api from '../../../../Api';
 
 const Tarefas = () => {
     const [tarefas, setTarefas] = useState([]);
@@ -14,7 +13,7 @@ const Tarefas = () => {
 
     const getTarefas = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/tarefas/", {
+            const response = await api.get("/api/tarefas/", {
                 withCredentials: true,
             });
             setTarefas(response.data);
@@ -26,7 +25,7 @@ const Tarefas = () => {
     const postTarefas = async () => {
         try {
             if (novaTarefa.descricao != "" && novaTarefa.titulo != "") {
-                const response = await axios.post("http://localhost:8000/api/tarefas/adicionar", novaTarefa, {
+                const response = await api.post("/api/tarefas/adicionar", novaTarefa, {
                 withCredentials: true,
                 });
                 
@@ -44,7 +43,7 @@ const Tarefas = () => {
     const deleteTarefas = async (id) => {
         if (window.confirm("Tem certeza que deseja deletar essa tarefa?")) {
             try {
-                await axios.delete(`http://localhost:8000/api/tarefas/deletar/${id}`, {
+                await api.delete(`/api/tarefas/deletar/${id}`, {
                     withCredentials: true,
                 })
                 setTarefas(tarefas.filter(tarefa => tarefa.id !== id));
