@@ -10,7 +10,7 @@ import (
 
 func Usuarios(c *gin.Context) {
 	var u []models.User
-	database.DB.Find(&u)
+	database.DB.Preload("Tarefas").Find(&u)
 	c.JSON(http.StatusOK, u)
 }
 

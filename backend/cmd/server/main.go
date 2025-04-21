@@ -10,12 +10,11 @@ import (
 
 func init() {
 	config.LoadEnv()
+	database.ConectDataBase()
 }
 
 func main() {
-
-	database.ConectDataBase()
-	fmt.Println("Servidor rodando na porta 8000")
 	routers.HandleRequest()
+	fmt.Println("Servidor rodando na porta 8000")
 
 }

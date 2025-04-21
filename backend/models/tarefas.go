@@ -11,10 +11,8 @@ type Tarefa struct {
 	Titulo      string `json:"titulo"`
 	Descricao   string `json:"descricao"`
 	DataCriacao string `json:"dataCriacao"`
-	// UsuarioID   uint   `json:"usuarioId"`
+	UsuarioID   uint   `json:"usuario_id"`
 }
-
-var Tarefas []Tarefa
 
 func (t *Tarefa) ValidateRequiredFields(c *gin.Context) error {
 	if t.Titulo == "" || t.Descricao == "" {

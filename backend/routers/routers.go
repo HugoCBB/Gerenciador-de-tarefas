@@ -13,20 +13,23 @@ func HandleRequest() {
 	r.Use(middleware.CORSMiddleware())
 	r.Use(middleware.ContentTypeMiddleware())
 
-	v1 := r.Group("/api/tarefas")
+	api := r.Group("/api")
 	{
-		v1.GET("/", controllers.Tarefas)
-		v1.GET("/:id", controllers.ObterTarefas)
-		v1.POST("/adicionar", controllers.AdicionarTarefa)
-		v1.DELETE("/deletar/:id", controllers.DeletarTarefa)
-		v1.PUT("/editar/:id", controllers.EditarTarefa)
+		tarefas := api.Group("/tarefas")
+		{
+			tarefas.GET("/", controllers.Tarefas)
+			tarefas.GET("/:id", controllers.ObterTarefas)
+			tarefas.POST("/adicionar", controllers.AdicionarTarefa)
+			tarefas.DELETE("/deletar/:id", controllers.DeletarTarefa)
+			tarefas.PUT("/editar/:id", controllers.EditarTarefa)
 
+		}
+		user := api.Group("/user")
+		{
+			user.GET("/", controllers.Usuarios)
+			user.POST("/cadastrar", controllers.CadastrarUsuario)
+		}
 	}
 
-	v2 := r.Group("api/user")
-	{
-		v2.GET("/", controllers.Usuarios)
-		v2.POST("/cadastrar", controllers.CadastrarUsuario)
-	}
 	r.Run(":8000")
 }
