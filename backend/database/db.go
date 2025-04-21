@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/config"
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -16,7 +17,14 @@ var (
 
 func ConectDataBase() {
 
-	dsn := "host=localhost user=postgres password=hugo00028922 dbname=tarefas-db port=5432 sslmode=disable"
+	dbConfig := config.NewDatabaseConfigEnv()
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		dbConfig.Host,
+		dbConfig.User,
+		dbConfig.Password,
+		dbConfig.Name,
+		dbConfig.Port,
+	)
 	DB, err = gorm.Open(postgres.Open(dsn))
 
 	if err != nil {
