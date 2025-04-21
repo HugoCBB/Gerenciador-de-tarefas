@@ -15,6 +15,7 @@ var (
 )
 
 func ConectDataBase() {
+
 	dsn := "host=localhost user=postgres password=hugo00028922 dbname=tarefas-db port=5432 sslmode=disable"
 	DB, err = gorm.Open(postgres.Open(dsn))
 

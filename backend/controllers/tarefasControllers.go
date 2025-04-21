@@ -32,7 +32,7 @@ func ObterTarefas(c *gin.Context) {
 
 func AdicionarTarefa(c *gin.Context) {
 	var t models.Tarefa
-	t.DataCriacao = time.Now()
+	t.DataCriacao = time.Now().Format("02/01/2006")
 	if err := c.ShouldBindJSON(&t); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

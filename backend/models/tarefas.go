@@ -2,16 +2,15 @@ package models
 
 import (
 	"errors"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Tarefa struct {
-	Id          uint      `json:"id" gorm:"primary_key"`
-	Titulo      string    `json:"titulo"`
-	Descricao   string    `json:"descricao"`
-	DataCriacao time.Time `json:"dataCriacao"`
+	Id          uint   `json:"id" gorm:"primary_key"`
+	Titulo      string `json:"titulo"`
+	Descricao   string `json:"descricao"`
+	DataCriacao string `json:"dataCriacao"`
 	// UsuarioID   uint   `json:"usuarioId"`
 }
 
