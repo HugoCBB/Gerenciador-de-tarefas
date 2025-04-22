@@ -5,8 +5,8 @@ import "errors"
 type User struct {
 	Id      uint     `json:"id" gorm:"primary_key"`
 	Nome    string   `json:"nome"`
-	Email   string   `json:"email" `
-	Senha   string   `json:"senha" gorm:"size:8"`
+	Email   string   `json:"email" gorm:"unique" `
+	Senha   string   `json:"senha" `
 	Tarefas []Tarefa `gorm:"foreignKey:UsuarioID;constraint:OnDelete:CASCADE;"`
 }
 

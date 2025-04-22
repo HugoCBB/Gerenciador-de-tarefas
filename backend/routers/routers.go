@@ -27,7 +27,8 @@ func HandleRequest() {
 		user := api.Group("/user")
 		{
 			user.GET("/", controllers.Usuarios)
-			user.POST("/cadastrar", controllers.CadastrarUsuario)
+			user.POST("/cadastrar", controllers.Cadastrar)
+
 		}
 	}
 

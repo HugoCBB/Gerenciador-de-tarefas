@@ -6,6 +6,7 @@ import (
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/database"
 	"github.com/HugoCBB/Gerenciador-de-tarefas/backend/models"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func Usuarios(c *gin.Context) {
@@ -14,8 +15,9 @@ func Usuarios(c *gin.Context) {
 	c.JSON(http.StatusOK, u)
 }
 
-func CadastrarUsuario(c *gin.Context) {
+func Cadastrar(c *gin.Context) {
 	var u models.User
+
 	if err := c.ShouldBindJSON(&u); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -25,6 +27,25 @@ func CadastrarUsuario(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	database.DB.Create(&u)
-	c.JSON(http.StatusOK, u)
+
+	// Transforma a senha em uma hash
+	hash, err := bcrypt.GenerateFromPassword([]byte(u.Senha), bcrypt.DefaultCost)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	user := models.User{
+		Nome:  u.Nome,
+		Email: u.Email,
+		Senha: string(hash),
+	}
+
+	database.DB.Create(&user)
+	c.JSON(http.StatusOK, user)
+}
+
+func Login() {
+
 }
