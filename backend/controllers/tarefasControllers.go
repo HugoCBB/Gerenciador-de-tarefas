@@ -51,7 +51,7 @@ func DeletarTarefa(c *gin.Context) {
 	id := c.Param("id")
 	database.DB.Delete(&t, id)
 	c.JSON(http.StatusOK, gin.H{
-		"message": "tarefa deletada com sucesso"})
+		"status": "tarefa deletada com sucesso"})
 
 }
 

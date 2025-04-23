@@ -28,6 +28,8 @@ func HandleRequest() {
 		{
 			user.GET("/", controllers.Usuarios)
 			user.POST("/cadastrar", controllers.Cadastrar)
+			user.POST("/login", controllers.Login)
+			user.GET("/validar", middleware.RequireAuth, controllers.Validar)
 
 		}
 	}
