@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Tarefas.css';
 import Card from '../../components/card';
-import api from '../../../../Api';
+import api from '../../services/Api';
 
-const Tarefas = () => {
+export default function Tarefas () {
     const [tarefas, setTarefas] = useState([]);
     const [novaTarefa, setNovaTarefa] = useState({titulo:'', descricao:''})
 
@@ -13,19 +13,20 @@ const Tarefas = () => {
 
     const getTarefas = async () => {
         try {
-            const response = await api.get("/api/tarefas/", {
+            const response = await api.get("/tarefas/", {
                 withCredentials: true,
             });
             setTarefas(response.data);
         } catch (err) {
             console.error("Erro ao buscar tarefas:", err);
+        
         }
     };
 
     const postTarefas = async () => {
         try {
             if (novaTarefa.descricao != "" && novaTarefa.titulo != "") {
-                const response = await api.post("/api/tarefas/adicionar", novaTarefa, {
+                const response = await api.post("/tarefas/adicionar", novaTarefa, {
                 withCredentials: true,
                 });
                 
@@ -33,22 +34,21 @@ const Tarefas = () => {
                 setNovaTarefa({ titulo: '', descricao: '' });
             } else {
                 alert("Preencha os campos corretamente");
-                console.error("Campos vazios");
             }
         } catch (err) {
-            console.error("Erro ao adicionar tarefa:", err);
+            alert("Erro ao adicionar tarefa: ", err);
         }
     };
 
     const deleteTarefas = async (id) => {
         if (window.confirm("Tem certeza que deseja deletar essa tarefa?")) {
             try {
-                await api.delete(`/api/tarefas/deletar/${id}`, {
+                await api.delete(`/tarefas/deletar/${id}`, {
                     withCredentials: true,
                 })
                 setTarefas(tarefas.filter(tarefa => tarefa.id !== id));
             } catch (err) {
-                console.log("Erro ao deletar tarefa: ",err)
+                alert("Erro ao deletar tarefa: ",err)
                 
             }
         }
@@ -91,5 +91,3 @@ const Tarefas = () => {
         </section>
     );
 };
-
-export default Tarefas;

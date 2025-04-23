@@ -31,6 +31,13 @@ func Cadastrar(c *gin.Context) {
 		return
 	}
 
+	// verifica a existencia do email no banco
+	var existingUser models.User
+	if err := database.DB.Where("email = ?", u.Email).First(&existingUser).Error; err == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "E-mail já está em uso"})
+		return
+	}
+
 	// Transforma a senha em uma hash
 	hash, err := bcrypt.GenerateFromPassword([]byte(u.Senha), bcrypt.DefaultCost)
 
@@ -46,7 +53,9 @@ func Cadastrar(c *gin.Context) {
 	}
 
 	database.DB.Create(&user)
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, gin.H{
+		"status": "Usuario cadastrado com sucesso",
+	})
 }
 
 func Login(c *gin.Context) {
@@ -60,7 +69,7 @@ func Login(c *gin.Context) {
 	// Verifica a existencia do email no banco de dados
 	user := models.User{}
 	if err := database.DB.First(&user, "email = ?", u.Email).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "email ou senha inválido"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Email ou senha inválida"})
 		return
 	}
 
@@ -68,7 +77,7 @@ func Login(c *gin.Context) {
 	err := bcrypt.CompareHashAndPassword([]byte(user.Senha), []byte(u.Senha))
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "senha invalida"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Senha invalida"})
 		return
 	}
 
@@ -94,6 +103,7 @@ func Login(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": "Login realizado com sucesso",
+		"token":  token,
 	})
 
 }

@@ -1,6 +1,6 @@
 import './Card.css';
 
-const Card = ({ titulo, descricao, dataCriacao, onDelete }) => {
+export default function Card ({ titulo, descricao, dataCriacao, onDelete }) {
     return (
         <section>
         <div className="card">
@@ -15,4 +15,3 @@ const Card = ({ titulo, descricao, dataCriacao, onDelete }) => {
     );
 }
 
-export default Card;

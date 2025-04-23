@@ -2,7 +2,8 @@
 
 import Navbar from "../../components/NavBar";
 import "./Home.css"
-const Home = () => {
+
+export default function Home () {
     return (
         <section className="home">
             <Navbar/>
@@ -13,5 +14,3 @@ const Home = () => {
         </section>
     )
 }
-
-export default Home;

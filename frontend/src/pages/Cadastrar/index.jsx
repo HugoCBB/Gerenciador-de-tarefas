@@ -1,28 +1,28 @@
 import './Cadastrar.css';
 import Navbar from "../../components/NavBar";
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../../services/Api';
 
-const Cadastrar = () => {
+export default function Cadastrar () {
 
-    const [usuarios, setUsuarios] = useState([]);
-    const [cadastraUsuario, setCadastrarUsuario] = useState({
+    const [form, setForm] = useState({
         nome: '',
         email: '',
         senha: '',
     })
 
 
-    const postCadastrarUsuario = async () => {
+    const Cadastro = async (e) => {
+        e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8000/api/user/cadastrar", cadastraUsuario, {
+            const response = await api.post("/user/cadastrar", form, {
                 withCredentials: true
             })
-            setCadastrarUsuario(response.data);
-            setUsuarios([...usuarios, cadastraUsuario]);
-            console.log(usuarios);
-        } catch (error) {
-            console.error("Erro ao cadastrar usuario:", error);
+            setForm(response.data);
+            alert(response.data.status)
+        
+        } catch (err) {
+            alert(err.response?.data?.error)
         }
     }
 
@@ -31,33 +31,33 @@ const Cadastrar = () => {
         <section className='cadastrar'> 
             <Navbar />
             <section className="cadastrar__container">
-                <form className="form-cadastrar" type="submit">
+                <form className="form-cadastrar"  onSubmit={Cadastro}>
+                    
                     <input type="text" 
-                    placeholder="Digite o seu nome" 
-                    value={cadastraUsuario.nome}
-                    onChange={(e) => setCadastrarUsuario({...cadastraUsuario, nome: e.target.value})}
+                        placeholder="Digite o seu nome" 
+                        value={form.nome}
+                        onChange={(e) => setForm({...form, nome: e.target.value})}
                     />
                     
                     <input type="email" 
-                    placeholder="Digite um email valido" 
-                    value={cadastraUsuario.email}
-                    onChange={(e) => setCadastrarUsuario({...cadastraUsuario, email: e.target.value})}
+                        placeholder="Digite um email valido" 
+                        value={form.email}
+                        onChange={(e) => setForm({...form, email: e.target.value})}
                     />
                     
                     <input type="password" 
-                    placeholder="Digite uma senha"
-                    value={cadastraUsuario.senha} 
-                    onChange={(e) => setCadastrarUsuario({...cadastraUsuario, senha: e.target.value})}
+                        placeholder="Digite uma senha"
+                        value={form.senha} 
+                        onChange={(e) => setForm({...form, senha: e.target.value})}
                     />
                     
-                    <input type="password" 
-                    placeholder="Confirme a senha" />
-                    <button type="submit" onClick={postCadastrarUsuario}>Cadastrar</button>
+                    <input 
+                        type="password" 
+                        placeholder="Confirme a senha" />
+                    <button type="submit">Cadastrar</button>
                 </form>
             </section>
         </section>
         </>
     )
 }
-
-export default Cadastrar;
