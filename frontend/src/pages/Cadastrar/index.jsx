@@ -1,5 +1,5 @@
 import './Cadastrar.css';
-import Navbar from "../../components/NavBar";
+import Navbar from "../../components/Navbar";
 import { useState } from 'react';
 import api from '../../services/Api';
 

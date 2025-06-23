@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Tarefas from "./pages/Tarefas";
 import Login from "./pages/Login";
 import Cadastrar from "./pages/Cadastrar";
-import Home from './pages/home';
+import Home from './pages/Home';
 
 function App() {
 
